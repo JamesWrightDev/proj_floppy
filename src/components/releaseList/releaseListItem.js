@@ -1,10 +1,12 @@
 import React from 'react'
 
-export default function releaseListItem() {
+export default function releaseListItem(props) {
     return (
         <div>
-            <h4>Comic Name</h4>
-            <p> Price </p>
+            <h4>{props.title}</h4>
+            <p> {props.price}</p>
+            <p>{props.publisher}</p>
+            <button>Add to List</button>
         </div>
     )
 }
