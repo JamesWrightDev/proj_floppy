@@ -9,7 +9,7 @@ class releaseListContainer extends Component {
       }
 
     componentDidMount(){
-        axios.get('https://api.shortboxed.com/comics/v1/previous', { crossdomain: true })
+        axios.get('http://localhost:3001', { crossdomain: true })
             .then(res => {
                 const data = res.data.comics;
                 this.setState({
