@@ -1,11 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import HeaderContainer from './components/Header/headerContainer';
+import ReleaseListContainer from './components/releaseList/releaseListContainer';
+import Footer from './components/Footer/footerContainer';
 
 function App() {
   return (
-    <div className="App">
-
+    <div>
+        <HeaderContainer/>
+        <main>
+          <ReleaseListContainer/>
+        </main>
+    <Footer/>
     </div>
   );
 }
