@@ -9,7 +9,7 @@ class releaseListContainer extends Component {
       }
 
     componentDidMount(){
-        axios.get('http://localhost:3001', { crossdomain: true })
+        axios.get('http://localhost:3001/new', { crossdomain: true })
             .then(res => {
                 const data = res.data.comics;
                 this.setState({
