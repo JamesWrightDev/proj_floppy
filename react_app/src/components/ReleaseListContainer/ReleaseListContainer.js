@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import ReleaseListItem from './releaseListItem';
+import ReleaseListItem from './ReleaseList/ReleaseListItem';
 import axios from 'axios';
-import { connect } from 'react-redux';
-class releaseListContainer extends Component {
+import { connect, dispatch } from 'react-redux';
+class ReleaseListContainer extends Component {
+
     state = {
         data:[],
         loading: true
@@ -12,7 +13,9 @@ class releaseListContainer extends Component {
         axios.get('http://localhost:3001/new', { crossdomain: true })
             .then(res => {
                 const data = res.data.comics;
+                console.log(data);
                 this.setState({
+                    ...this.state,
                     data,
                     loading: false
                      });
@@ -24,6 +27,8 @@ class releaseListContainer extends Component {
 
 
     render() {
+        console.log(this.props.consumApi);
+
         return (
             <div>
                 {/* <h2>{this.props.comics}</h2> */}
@@ -49,7 +54,7 @@ function mapStateToProps(state) {
   }
 function mapDispatchToProps(dispatch){
     return{
-        addComic: (data) => dispatch({ type: 'ADD_COMIC', payload: data } )
+        consumApi: (data) => dispatch({ type: '@CONSUME_API', payload: data } )
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(releaseListContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ReleaseListContainer)
