@@ -1,25 +1,24 @@
 import React, { Component } from 'react'
 import ReleaseListItem from './ReleaseList/ReleaseListItem';
 import axios from 'axios';
-import { connect, dispatch } from 'react-redux';
-class ReleaseListContainer extends Component {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { consumeApi } from '../../redux/actions/index';
 
-    state = {
-        data:[],
+class ReleaseListContainer extends Component {
+    constructor(props){
+        super(props);
+
+    this.state = {
         loading: true
       }
+    }
 
     componentDidMount(){
         axios.get('http://localhost:3001/new', { crossdomain: true })
             .then(res => {
                 const data = res.data.comics;
-                console.log(data);
-                this.setState({
-                    ...this.state,
-                    data,
-                    loading: false
-                     });
-
+                this.props.dispatch({type: '@CONSUME_API', payload: data});
             }).catch(error => {
                 console.log(error);
             })
@@ -27,15 +26,10 @@ class ReleaseListContainer extends Component {
 
 
     render() {
-        console.log(this.props.consumApi);
-
         return (
             <div>
-                {/* <h2>{this.props.comics}</h2> */}
                 <h3>New Releases</h3>
-                {/* <button onClick={this.props.addComic}>VUTTON</button> */}
-
-                {this.state.data.map((item,index) => (
+                { this.props.data && this.props.data.map((item) => (
                     <ReleaseListItem
                         title={item.title}
                         price={item.price}
@@ -48,13 +42,10 @@ class ReleaseListContainer extends Component {
         )
     }
 }
-function mapStateToProps(state) {
-    const { comics } = state
-    return { comics }
-  }
-function mapDispatchToProps(dispatch){
-    return{
-        consumApi: (data) => dispatch({ type: '@CONSUME_API', payload: data } )
-    }
+
+const  mapStateToProps = state => {
+    const { data } = state
+    return { data }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ReleaseListContainer)
+
+export default connect(mapStateToProps)(ReleaseListContainer)

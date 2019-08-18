@@ -4,8 +4,10 @@ const initialState = {
     comicItems: [],
   };
   function rootReducer(state = initialState, action) {
+    console.log(action);
     if(action.type === CONSUME_API){
-      console.log(123);
+      const data = action.payload;
+      return { ...state, data}
     }
     if(action.type === ADD_COMIC){
       return Object.assign({}, state, {
